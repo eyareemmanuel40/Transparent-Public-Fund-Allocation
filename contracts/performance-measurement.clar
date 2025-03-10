@@ -1,30 +1,18 @@
+;; Performance Measurement Contract
 
-;; title: performance-measurement
-;; version:
-;; summary:
-;; description:
+(define-map project-performances
+  { project-id: uint }
+  { goal: (string-ascii 256), achieved: bool }
+)
 
-;; traits
-;;
+(define-public (set-project-performance (project-id uint) (goal (string-ascii 256)) (achieved bool))
+  (ok (map-set project-performances
+    { project-id: project-id }
+    { goal: goal, achieved: achieved }
+  ))
+)
 
-;; token definitions
-;;
-
-;; constants
-;;
-
-;; data vars
-;;
-
-;; data maps
-;;
-
-;; public functions
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
+(define-read-only (get-project-performance (project-id uint))
+  (map-get? project-performances { project-id: project-id })
+)
 

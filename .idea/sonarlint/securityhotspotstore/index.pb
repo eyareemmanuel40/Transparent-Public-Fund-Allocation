@@ -7,3 +7,5 @@ O
 tests/budget-allocation.test.ts,a/d/ad0ece9b9ee0bf9590001adf4fb9698ecc6ffb51
 O
 contracts/expense-tracking.clar,0/5/052a4b55ebae66dcdc2072b5c08ba321924af636
+V
+&contracts/performance-measurement.clar,2/6/26d8a4fa300c7521ee4918b21238855cb05ee80f
