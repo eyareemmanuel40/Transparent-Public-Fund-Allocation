@@ -1,30 +1,27 @@
+;; Expense Tracking Contract
 
-;; title: expense-tracking
-;; version:
-;; summary:
-;; description:
+(define-map expenses
+  { id: uint }
+  { department: (string-ascii 64), amount: uint, description: (string-ascii 256) }
+)
 
-;; traits
-;;
+(define-data-var expense-counter uint u0)
 
-;; token definitions
-;;
+(define-public (record-expense (department (string-ascii 64)) (amount uint) (description (string-ascii 256)))
+  (let
+    (
+      (expense-id (+ (var-get expense-counter) u1))
+    )
+    (map-set expenses
+      { id: expense-id }
+      { department: department, amount: amount, description: description }
+    )
+    (var-set expense-counter expense-id)
+    (ok expense-id)
+  )
+)
 
-;; constants
-;;
-
-;; data vars
-;;
-
-;; data maps
-;;
-
-;; public functions
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
+(define-read-only (get-expense (id uint))
+  (map-get? expenses { id: id })
+)
 
