@@ -9,3 +9,5 @@ O
 contracts/expense-tracking.clar,0/5/052a4b55ebae66dcdc2072b5c08ba321924af636
 V
 &contracts/performance-measurement.clar,2/6/26d8a4fa300c7521ee4918b21238855cb05ee80f
+O
+contracts/citizen-feedback.clar,9/8/9835c9bb923cf01ea2e494bb2a0a3ddf319e0a1d
