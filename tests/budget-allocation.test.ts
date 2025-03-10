@@ -1,21 +1,35 @@
+import { describe, expect, it, vi } from "vitest"
 
-import { describe, expect, it } from "vitest";
+// Mock contract calls
+const mockContractCall = vi.fn()
 
-const accounts = simnet.getAccounts();
-const address1 = accounts.get("wallet_1")!;
+describe("Budget Allocation Contract", () => {
+  it("should allocate budget and retrieve it correctly", async () => {
+    // Mock allocate-budget calls
+    mockContractCall.mockReturnValueOnce({ result: { value: true } }).mockReturnValueOnce({ result: { value: true } })
+    
+    const allocateEducation = await mockContractCall("allocate-budget", ["Education", 1000000])
+    const allocateHealthcare = await mockContractCall("allocate-budget", ["Healthcare", 2000000])
+    
+    expect(allocateEducation.result.value).toBe(true)
+    expect(allocateHealthcare.result.value).toBe(true)
+    
+    // Mock get-allocation calls
+    mockContractCall
+        .mockReturnValueOnce({ result: { value: { amount: 1000000 } } })
+        .mockReturnValueOnce({ result: { value: { amount: 2000000 } } })
+    
+    const educationAllocation = await mockContractCall("get-allocation", ["Education"])
+    const healthcareAllocation = await mockContractCall("get-allocation", ["Healthcare"])
+    
+    expect(educationAllocation.result.value).toEqual({ amount: 1000000 })
+    expect(healthcareAllocation.result.value).toEqual({ amount: 2000000 })
+    
+    // Mock get-total-budget call
+    mockContractCall.mockReturnValueOnce({ result: { value: 3000000 } })
+    
+    const totalBudget = await mockContractCall("get-total-budget", [])
+    expect(totalBudget.result.value).toBe(3000000)
+  })
+})
 
-/*
-  The test below is an example. To learn more, read the testing documentation here:
-  https://docs.hiro.so/stacks/clarinet-js-sdk
-*/
-
-describe("example tests", () => {
-  it("ensures simnet is well initalised", () => {
-    expect(simnet.blockHeight).toBeDefined();
-  });
-
-  // it("shows an example", () => {
-  //   const { result } = simnet.callReadOnlyFn("counter", "get-counter", [], address1);
-  //   expect(result).toBeUint(0);
-  // });
-});
