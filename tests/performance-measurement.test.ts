@@ -28,4 +28,3 @@ describe("Performance Measurement Contract", () => {
     })
   })
 })
-
